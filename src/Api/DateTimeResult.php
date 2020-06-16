@@ -70,13 +70,13 @@ class DateTimeResult extends \DateTime implements \JsonSerializable
                         }
                     }
                 }
-                else if (\Aws\is_valid_epoch($timestamp)) {
+                if (\Aws\is_valid_epoch($timestamp)) {
                     return self::fromEpoch($timestamp);
                 }
                 return self::fromISO8601($timestamp);
 
         } catch (Exception $exception) {
-            throw new ParserException('Invalid timestamp value passed to DateTimeResult::fromTimestamp');
+            throw $exception;
         }
     }
 
