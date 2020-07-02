@@ -4,6 +4,7 @@ namespace Aws\Api;
 
 use Aws\Api\Parser\Exception\ParserException;
 use Exception;
+use function Aws\is_valid_epoch;
 
 /**
  * DateTime overrides that make DateTime work more seamlessly as a string,
@@ -49,9 +50,14 @@ class DateTimeResult extends \DateTime implements \JsonSerializable
      */
     public static function fromTimestamp($timestamp, $expectedFormat = null)
     {
-            if (empty($timestamp) || !(is_string($timestamp) || is_numeric($timestamp))) {
+            if (empty($timestamp)){
+                return self::fromEpoch(0);
+            }
+
+            if (!(is_string($timestamp) || is_numeric($timestamp))) {
                 throw new ParserException('Invalid timestamp value passed to DateTimeResult::fromTimestamp');
             }
+
             try {
                 if ($expectedFormat == 'iso8601') {
                     try {
@@ -65,7 +71,7 @@ class DateTimeResult extends \DateTime implements \JsonSerializable
                     } catch (Exception $exception) {
                         return self::fromISO8601($timestamp);
                     }
-                } else if (\Aws\is_valid_epoch($timestamp)) {
+                } else if (is_valid_epoch($timestamp)) {
                     return self::fromEpoch($timestamp);
                 }
                 return self::fromISO8601($timestamp);
