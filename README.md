@@ -14,13 +14,13 @@ get started in minutes by [installing the SDK through Composer][docs-installatio
 or by downloading a single zip or phar file from our [latest release][latest-release].
 
 Jump To:
-* [Getting Started](#getting-started)
-* [Quick Examples](#quick-examples)
-* [Getting Help](#getting-help)
-* [Features](#features)
-* [Contributing](#contributing)
-* [More Resources](#resources)
-* [Related AWS Projects](#related-aws-projects)
+* [Getting Started](#Getting-Started)
+* [Quick Examples](#Quick-Examples)
+* [Getting Help](#Getting-Help)
+* [Features](#Features)
+* [Contributing](#Contributing)
+* [More Resources](#Resources)
+* [Related AWS Projects](#Related-AWS-Projects)
 
 ## Getting Started
 
