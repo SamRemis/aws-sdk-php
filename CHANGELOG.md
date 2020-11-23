@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 3.163.2 - 2020-11-20
+## next release
 
 * `Aws\AppMesh` - This release makes tag value a required attribute of the tag's key-value pair.
 * `Aws\AppRegistry` - AWS Service Catalog AppRegistry Documentation update
