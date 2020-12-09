@@ -10,16 +10,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    with:
     - name: Setup PHP with Xdebug
-      uses: shivammathur/setup-php@v2
-      with:
-        coverage: xdebug
-        php-version: '5.5'
-        ini-values: xdebug.overload_var_dump=0
-
-    - name: Checkout latest commit
-      uses: actions/checkout@v2
-      with:
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: xdebug
+          php-version: '5.5'
+          ini-values: xdebug.overload_var_dump=0
+    - uses: actions/checkout@v2
 
     - name: Validate composer.json and composer.lock
       run: composer validate
