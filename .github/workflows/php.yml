@@ -9,10 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    with:
-      php-version: '5.5'
     steps:
     - uses: actions/checkout@v2
+      with:
+        php-version: '5.5'
+        ini-values: xdebug.overload_var_dump=0
 
     - name: Validate composer.json and composer.lock
       run: composer validate
