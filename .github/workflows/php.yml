@@ -17,7 +17,6 @@ jobs:
         php-version: '5.5'
         ini-values: xdebug.overload_var_dump=0
 
-    with:
     - uses: actions/checkout@v2
 
     - name: Validate composer.json and composer.lock
