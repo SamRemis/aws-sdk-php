@@ -19,9 +19,6 @@ jobs:
       AWS_SECRET_ACCESS_KEY: bar
       AWS_CSM_ENABLED: false
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -30,3 +27,8 @@ jobs:
           ini-values: post_max_size=256M, short_open_tag=On
           coverage: xdebug
           tools: php-cs-fixer, phpunit
+      - name: install dependencies
+        uses: php-actions/composer@v4
+      - name: Checkout
+        uses: actions/checkout@v2
+
