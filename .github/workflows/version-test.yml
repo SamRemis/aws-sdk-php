@@ -1,0 +1,57 @@
+name: Check-Backward-Compadibility
+
+# Run this workflow every time a new commit is pushed or a PR is made
+on:
+    push:
+      branches: [master]
+    pull_request:
+      branches: [master]
+jobs:
+  # Set the job key. The key is displayed as the job name
+  # when a job name is not provided
+  jobs:
+    job1:
+      runs-on: ubuntu-latest
+  super-lint:
+    # Name the Job
+    name: Check backward compadibility
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          php-version: '7.4'
+
+      # Runs the Super-Linter action
+      - name: Run Super-Linter
+        uses: github/super-linter@v3
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4']
+    name: PHP ${{ matrix.php-versions }}
+    env:
+      AWS_ACCESS_KEY_ID: foo
+      AWS_SECRET_ACCESS_KEY: bar
+      AWS_CSM_ENABLED: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, intl
+          ini-values: post_max_size=256M, short_open_tag=On
+          coverage: xdebug
+          tools: php-cs-fixer, phpunit
