@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup PHP with Xdebug
-        with:
-          uses: shivammathur/setup-php@v2
-          coverage: xdebug
-          php-version: '5.5'
-          ini-values: xdebug.overload_var_dump=0
+      uses: shivammathur/setup-php@v2
+      with:
+        coverage: xdebug
+        php-version: '5.5'
+        ini-values: xdebug.overload_var_dump=0
 
     with:
     - uses: actions/checkout@v2
