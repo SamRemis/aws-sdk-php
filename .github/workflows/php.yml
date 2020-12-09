@@ -7,14 +7,21 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4']
+    name: PHP ${{ matrix.php-versions }}
+    env:
+      AWS_ACCESS_KEY_ID: foo
+      AWS_SECRET_ACCESS_KEY: bar
+      AWS_CSM_ENABLED: false
     steps:
     - name: Setup PHP with Xdebug
       uses: shivammathur/setup-php@v2
       with:
         coverage: xdebug
-        php-version: '7.3'
+        php-version: ${{ matrix.php-versions }}
         ini-values: xdebug.overload_var_dump=0
 
     - uses: actions/checkout@v2
@@ -35,12 +42,5 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
-
     - name: Run test suite
-      env:
-        AWS_ACCESS_KEY_ID: foo
-        AWS_SECRET_ACCESS_KEY: bar
-        AWS_CSM_ENABLED: false
       run: make test
