@@ -33,7 +33,7 @@ jobs:
     - name: customize for phpunit 5
       env:
         phpunit5-versions: ['7.2', '7.3', '7.4']
-      if contains(${{ env.phpunit5-versions }}, ${{ matrix.php-versions }}):
+      if contains(${{ phpunit5-versions }}, ${{ matrix.php-versions }}):
       run: composer require --dev --ignore-platform-reqs phpunit/phpunit "^5.7.11"
 
     - name: Cache Composer packages
