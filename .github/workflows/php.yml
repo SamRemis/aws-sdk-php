@@ -38,7 +38,9 @@ jobs:
 
     - if: ${{ matrix.php-versions == '5.5' }}
       name: remove xdebug config
-      run: sudo rm /etc/php5/cli/conf.d/20-xdebug.ini
+      run: |
+        sudo rm /etc/php5/cli/conf.d/20-xdebug.ini
+        composer require --dev --ignore-platform-reqs phpunit/phpunit "4.8.36"
 
     - name: Cache Composer packages
       id: composer-cache
