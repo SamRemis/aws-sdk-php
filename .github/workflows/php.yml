@@ -31,13 +31,9 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    - if: ${{ matrix.php-versions }} == '7.1'
+    - if: ${{ matrix.php-versions == '7.1' }}
       name: customize for phpunit 5
       run: composer require --dev --ignore-platform-reqs phpunit/phpunit "^5.7.11"
-
-    - if: ${{ matrix.php-versions }} == '5.5'
-      name: customize for 5.5
-      run: rm ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
 
     - name: Cache Composer packages
       id: composer-cache
