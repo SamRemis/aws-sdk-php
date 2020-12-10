@@ -388,8 +388,7 @@
         {"shape":"ResourceInUseException"},
         {"shape":"InvalidArgumentException"},
         {"shape":"InvalidRequestException"},
-        {"shape":"InvalidApplicationConfigurationException"},
-        {"shape":"ConcurrentModificationException"}
+        {"shape":"InvalidApplicationConfigurationException"}
       ]
     },
     "TagResource":{
@@ -711,8 +710,7 @@
         "READY",
         "RUNNING",
         "UPDATING",
-        "AUTOSCALING",
-        "FORCE_STOPPING"
+        "AUTOSCALING"
       ]
     },
     "ApplicationSummaries":{
@@ -2152,8 +2150,7 @@
       "type":"structure",
       "required":["ApplicationName"],
       "members":{
-        "ApplicationName":{"shape":"ApplicationName"},
-        "Force":{"shape":"BooleanObject"}
+        "ApplicationName":{"shape":"ApplicationName"}
       }
     },
     "StopApplicationResponse":{

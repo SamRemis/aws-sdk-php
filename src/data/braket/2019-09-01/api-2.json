@@ -83,21 +83,6 @@
         {"shape":"ValidationException"}
       ]
     },
-    "ListTagsForResource":{
-      "name":"ListTagsForResource",
-      "http":{
-        "method":"GET",
-        "requestUri":"/tags/{resourceArn}",
-        "responseCode":200
-      },
-      "input":{"shape":"ListTagsForResourceRequest"},
-      "output":{"shape":"ListTagsForResourceResponse"},
-      "errors":[
-        {"shape":"ResourceNotFoundException"},
-        {"shape":"InternalServiceException"},
-        {"shape":"ValidationException"}
-      ]
-    },
     "SearchDevices":{
       "name":"SearchDevices",
       "http":{
@@ -129,37 +114,6 @@
         {"shape":"InternalServiceException"},
         {"shape":"ValidationException"}
       ]
-    },
-    "TagResource":{
-      "name":"TagResource",
-      "http":{
-        "method":"POST",
-        "requestUri":"/tags/{resourceArn}",
-        "responseCode":200
-      },
-      "input":{"shape":"TagResourceRequest"},
-      "output":{"shape":"TagResourceResponse"},
-      "errors":[
-        {"shape":"ResourceNotFoundException"},
-        {"shape":"InternalServiceException"},
-        {"shape":"ValidationException"}
-      ]
-    },
-    "UntagResource":{
-      "name":"UntagResource",
-      "http":{
-        "method":"DELETE",
-        "requestUri":"/tags/{resourceArn}",
-        "responseCode":200
-      },
-      "input":{"shape":"UntagResourceRequest"},
-      "output":{"shape":"UntagResourceResponse"},
-      "errors":[
-        {"shape":"ResourceNotFoundException"},
-        {"shape":"InternalServiceException"},
-        {"shape":"ValidationException"}
-      ],
-      "idempotent":true
     }
   },
   "shapes":{
@@ -206,8 +160,8 @@
     "CancellationStatus":{
       "type":"string",
       "enum":[
-        "CANCELLING",
-        "CANCELLED"
+        "CANCELLED",
+        "CANCELLING"
       ]
     },
     "ConflictException":{
@@ -242,31 +196,30 @@
         },
         "deviceArn":{"shape":"DeviceArn"},
         "deviceParameters":{
-          "shape":"CreateQuantumTaskRequestDeviceParametersString",
+          "shape":"CreateQuantumTaskRequestdeviceParametersJsonValue",
           "jsonvalue":true
         },
-        "outputS3Bucket":{"shape":"CreateQuantumTaskRequestOutputS3BucketString"},
-        "outputS3KeyPrefix":{"shape":"CreateQuantumTaskRequestOutputS3KeyPrefixString"},
-        "shots":{"shape":"CreateQuantumTaskRequestShotsLong"},
-        "tags":{"shape":"TagsMap"}
+        "outputS3Bucket":{"shape":"CreateQuantumTaskRequestoutputS3BucketString"},
+        "outputS3KeyPrefix":{"shape":"CreateQuantumTaskRequestoutputS3KeyPrefixString"},
+        "shots":{"shape":"CreateQuantumTaskRequestshotsLong"}
       }
     },
-    "CreateQuantumTaskRequestDeviceParametersString":{
+    "CreateQuantumTaskRequestdeviceParametersJsonValue":{
       "type":"string",
       "max":2048,
       "min":1
     },
-    "CreateQuantumTaskRequestOutputS3BucketString":{
+    "CreateQuantumTaskRequestoutputS3BucketString":{
       "type":"string",
       "max":63,
       "min":3
     },
-    "CreateQuantumTaskRequestOutputS3KeyPrefixString":{
+    "CreateQuantumTaskRequestoutputS3KeyPrefixString":{
       "type":"string",
       "max":1024,
       "min":1
     },
-    "CreateQuantumTaskRequestShotsLong":{
+    "CreateQuantumTaskRequestshotsLong":{
       "type":"long",
       "box":true,
       "min":0
@@ -297,8 +250,8 @@
     "DeviceStatus":{
       "type":"string",
       "enum":[
-        "ONLINE",
-        "OFFLINE"
+        "OFFLINE",
+        "ONLINE"
       ]
     },
     "DeviceSummary":{
@@ -398,8 +351,7 @@
         "outputS3Directory":{"shape":"String"},
         "quantumTaskArn":{"shape":"QuantumTaskArn"},
         "shots":{"shape":"Long"},
-        "status":{"shape":"QuantumTaskStatus"},
-        "tags":{"shape":"TagsMap"}
+        "status":{"shape":"QuantumTaskStatus"}
       }
     },
     "InternalServiceException":{
@@ -412,23 +364,6 @@
       "fault":true
     },
     "JsonValue":{"type":"string"},
-    "ListTagsForResourceRequest":{
-      "type":"structure",
-      "required":["resourceArn"],
-      "members":{
-        "resourceArn":{
-          "shape":"String",
-          "location":"uri",
-          "locationName":"resourceArn"
-        }
-      }
-    },
-    "ListTagsForResourceResponse":{
-      "type":"structure",
-      "members":{
-        "tags":{"shape":"TagsMap"}
-      }
-    },
     "Long":{
       "type":"long",
       "box":true
@@ -441,13 +376,13 @@
     "QuantumTaskStatus":{
       "type":"string",
       "enum":[
-        "CREATED",
-        "QUEUED",
-        "RUNNING",
-        "COMPLETED",
-        "FAILED",
+        "CANCELLED",
         "CANCELLING",
-        "CANCELLED"
+        "COMPLETED",
+        "CREATED",
+        "FAILED",
+        "QUEUED",
+        "RUNNING"
       ]
     },
     "QuantumTaskSummary":{
@@ -469,8 +404,7 @@
         "outputS3Directory":{"shape":"String"},
         "quantumTaskArn":{"shape":"QuantumTaskArn"},
         "shots":{"shape":"Long"},
-        "status":{"shape":"QuantumTaskStatus"},
-        "tags":{"shape":"TagsMap"}
+        "status":{"shape":"QuantumTaskStatus"}
       }
     },
     "QuantumTaskSummaryList":{
@@ -495,16 +429,16 @@
         "values"
       ],
       "members":{
-        "name":{"shape":"SearchDevicesFilterNameString"},
-        "values":{"shape":"SearchDevicesFilterValuesList"}
+        "name":{"shape":"SearchDevicesFilternameString"},
+        "values":{"shape":"SearchDevicesFiltervaluesString256List"}
       }
     },
-    "SearchDevicesFilterNameString":{
+    "SearchDevicesFilternameString":{
       "type":"string",
       "max":64,
       "min":1
     },
-    "SearchDevicesFilterValuesList":{
+    "SearchDevicesFiltervaluesString256List":{
       "type":"list",
       "member":{"shape":"String256"},
       "max":10,
@@ -514,18 +448,18 @@
       "type":"structure",
       "required":["filters"],
       "members":{
-        "filters":{"shape":"SearchDevicesRequestFiltersList"},
-        "maxResults":{"shape":"SearchDevicesRequestMaxResultsInteger"},
+        "filters":{"shape":"SearchDevicesRequestfiltersSearchDevicesFilterList"},
+        "maxResults":{"shape":"SearchDevicesRequestmaxResultsInteger"},
         "nextToken":{"shape":"String"}
       }
     },
-    "SearchDevicesRequestFiltersList":{
+    "SearchDevicesRequestfiltersSearchDevicesFilterList":{
       "type":"list",
       "member":{"shape":"SearchDevicesFilter"},
       "max":10,
       "min":0
     },
-    "SearchDevicesRequestMaxResultsInteger":{
+    "SearchDevicesRequestmaxResultsInteger":{
       "type":"integer",
       "box":true,
       "max":100,
@@ -549,21 +483,21 @@
       "members":{
         "name":{"shape":"String64"},
         "operator":{"shape":"SearchQuantumTasksFilterOperator"},
-        "values":{"shape":"SearchQuantumTasksFilterValuesList"}
+        "values":{"shape":"SearchQuantumTasksFiltervaluesString256List"}
       }
     },
     "SearchQuantumTasksFilterOperator":{
       "type":"string",
       "enum":[
-        "LT",
-        "LTE",
+        "BETWEEN",
         "EQUAL",
         "GT",
         "GTE",
-        "BETWEEN"
+        "LT",
+        "LTE"
       ]
     },
-    "SearchQuantumTasksFilterValuesList":{
+    "SearchQuantumTasksFiltervaluesString256List":{
       "type":"list",
       "member":{"shape":"String256"},
       "max":10,
@@ -573,18 +507,18 @@
       "type":"structure",
       "required":["filters"],
       "members":{
-        "filters":{"shape":"SearchQuantumTasksRequestFiltersList"},
-        "maxResults":{"shape":"SearchQuantumTasksRequestMaxResultsInteger"},
+        "filters":{"shape":"SearchQuantumTasksRequestfiltersSearchQuantumTasksFilterList"},
+        "maxResults":{"shape":"SearchQuantumTasksRequestmaxResultsInteger"},
         "nextToken":{"shape":"String"}
       }
     },
-    "SearchQuantumTasksRequestFiltersList":{
+    "SearchQuantumTasksRequestfiltersSearchQuantumTasksFilterList":{
       "type":"list",
       "member":{"shape":"SearchQuantumTasksFilter"},
       "max":10,
       "min":0
     },
-    "SearchQuantumTasksRequestMaxResultsInteger":{
+    "SearchQuantumTasksRequestmaxResultsInteger":{
       "type":"integer",
       "box":true,
       "max":100,
@@ -624,35 +558,6 @@
       "type":"timestamp",
       "timestampFormat":"iso8601"
     },
-    "TagKeys":{
-      "type":"list",
-      "member":{"shape":"String"}
-    },
-    "TagResourceRequest":{
-      "type":"structure",
-      "required":[
-        "resourceArn",
-        "tags"
-      ],
-      "members":{
-        "resourceArn":{
-          "shape":"String",
-          "location":"uri",
-          "locationName":"resourceArn"
-        },
-        "tags":{"shape":"TagsMap"}
-      }
-    },
-    "TagResourceResponse":{
-      "type":"structure",
-      "members":{
-      }
-    },
-    "TagsMap":{
-      "type":"map",
-      "key":{"shape":"String"},
-      "value":{"shape":"String"}
-    },
     "ThrottlingException":{
       "type":"structure",
       "members":{
@@ -663,30 +568,6 @@
         "senderFault":true
       },
       "exception":true
-    },
-    "UntagResourceRequest":{
-      "type":"structure",
-      "required":[
-        "resourceArn",
-        "tagKeys"
-      ],
-      "members":{
-        "resourceArn":{
-          "shape":"String",
-          "location":"uri",
-          "locationName":"resourceArn"
-        },
-        "tagKeys":{
-          "shape":"TagKeys",
-          "location":"querystring",
-          "locationName":"tagKeys"
-        }
-      }
-    },
-    "UntagResourceResponse":{
-      "type":"structure",
-      "members":{
-      }
     },
     "ValidationException":{
       "type":"structure",
