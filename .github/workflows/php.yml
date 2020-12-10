@@ -37,7 +37,7 @@ jobs:
 
     - if: ${{ matrix.php-versions == '5.5' }}
       name: customize for 5.5
-      run: rm ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+      run: rm ~/.phpenv/versions$(phpenv version-name)/etc/conf.d/xdebug.ini
 
     - name: Cache Composer packages
       id: composer-cache
