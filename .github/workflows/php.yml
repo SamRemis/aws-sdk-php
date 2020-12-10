@@ -31,7 +31,7 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    - if '7.1' == ${{ matrix.php-versions }}):
+    - if: ${{ matrix.php-versions }} == '7.1'
       name: customize for phpunit 5
       run: composer require --dev --ignore-platform-reqs phpunit/phpunit "^5.7.11"
 
