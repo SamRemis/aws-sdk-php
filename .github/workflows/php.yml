@@ -19,6 +19,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: bar
       AWS_CSM_ENABLED: false
     steps:
+    #sets up the correct version of PHP
     - name: Setup PHP with Xdebug
       uses: shivammathur/setup-php@v2
       with:
@@ -26,18 +27,20 @@ jobs:
         php-version: ${{ matrix.php-versions }}
         ini-values: xdebug.overload_var_dump=0, memory_limit=4G
 
-
+    #checkout the codebase from github
     - uses: actions/checkout@v2
 
+    #validate composer files
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    - if: ${{ matrix.php-versions <= '7.1' }}
-      name: customize for phpunit 5
+    #downgrade to supported
+    - if: ${{ matrix.php-versions <= '7.1'  && matrix.php-versions !== 5.5}}
+      name: downgrade to phpunit 5
       run: composer require --dev --ignore-platform-reqs phpunit/phpunit "^5.7.11"
 
     - if: ${{ matrix.php-versions == '5.5' }}
-      name: remove xdebug config
+      name: remove xdebug config and downgrade to phpunit 4
       run: |
         sudo rm /etc/php5/cli/conf.d/20-xdebug.ini
         composer require --dev --ignore-platform-reqs phpunit/phpunit "4.8.36"
