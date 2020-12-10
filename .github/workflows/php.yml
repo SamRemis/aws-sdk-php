@@ -38,6 +38,10 @@ jobs:
       name: customize for phpunit 5
       run: composer require --dev --ignore-platform-reqs phpunit/phpunit "4.8.36"
 
+    - if: ${{ matrix.php-versions == '5.6' }}
+      name: customize for phpunit 5
+      run: composer --version
+
     - if: ${{ matrix.php-versions == '7.0' }}
       name: customize for phpunit 5
       run: composer --version
