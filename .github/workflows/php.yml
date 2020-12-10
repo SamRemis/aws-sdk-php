@@ -56,8 +56,7 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer update --no-interaction --prefer-source
+      run: composer update --no-interaction --prefer-source 
 
     - name: Run test suite
       run: make test
