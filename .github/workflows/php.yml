@@ -23,7 +23,8 @@ jobs:
       with:
         coverage: xdebug
         php-version: ${{ matrix.php-versions }}
-        ini-values: xdebug.overload_var_dump=0
+        ini-values: xdebug.overload_var_dump=0, memory_limit=4G
+
 
     - uses: actions/checkout@v2
 
@@ -56,7 +57,7 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer update --no-interaction --prefer-source 
+      run: composer update --no-interaction --prefer-source
 
     - name: Run test suite
       run: make test
