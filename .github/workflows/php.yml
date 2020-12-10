@@ -34,28 +34,40 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    #downgrade to supported
-    - if: ${{ matrix.php-versions <= '7.1'  && matrix.php-versions != 5.5}}
-      name: downgrade to phpunit 5
+    #downgrade to supported php unit
+    - if: ${{ matrix.php-versions <= '7.1'  && matrix.php-versions > 5.5}}
+      name: downgrade to phpunit 5 (php 5.6-7.1)
       run: composer require --dev --ignore-platform-reqs phpunit/phpunit "^5.7.11"
 
     - if: ${{ matrix.php-versions == '5.5' }}
-      name: remove xdebug config and downgrade to phpunit 4
+      name: remove xdebug config and downgrade to phpunit 4 (php 5.5 only)
       run: |
         sudo rm /etc/php5/cli/conf.d/20-xdebug.ini
         composer require --dev --ignore-platform-reqs phpunit/phpunit "4.8.36"
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-
+    #get dependencies
     - name: Install dependencies
       run: composer update ${{ matrix.composer-options }} --no-interaction --prefer-source
 
+    #run tests
     - name: Run test suite
       run: make test
+
+      #static analysis
+    - if: ${{ matrix.php-versions >= '7.1'  && matrix.php-versions <= 7.4}}
+      name: static analysis
+      run: |
+        composer require --dev nette/neon "^3.0"
+        composer require --dev phpstan/phpstan "0.12.45"
+        vendor/bin/phpstan analyse src
+
+    #generate package
+    - if:  ${{ matrix.composer-options }} == ''
+      name: package generation
+      run: make package
+
+    #generate code coverage
+    - if: ${{ matrix.php-versions == '7.1' }}
+      name: code coverage
+      run: bash <(curl -s https://codecov.io/bash)
+
