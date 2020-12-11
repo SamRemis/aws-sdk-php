@@ -73,7 +73,7 @@ jobs:
       run: make package
 
     #generate code coverage
-    - if: ${{ matrix.php-versions == '7.2' }}
+    - if: ${{ matrix.php-versions == '7.2' && matrix.composer-options == '' }}
       name: Code coverage
       run: bash <(curl -s https://codecov.io/bash)
 
