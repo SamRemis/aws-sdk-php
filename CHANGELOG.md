@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## 3.171.8 - 2020-12-29
+
+* `Aws\ACMPCA` - This release adds a new parameter "CsrExtensions" in the "CertificateAuthorityConfiguration" data structure, which allows customers to add the addition of KU and SIA into the CA CSR.
+* `Aws\ApiGatewayV2` - Amazon API Gateway now supports data mapping for HTTP APIs which allows customers to modify HTTP Request before sending it to their integration and HTTP Response before sending it to the invoker.
+
+## 3.171.7 - 2020-12-28
+
+* `Aws\CloudFront` - Amazon CloudFront has deprecated the CreateStreamingDistribution and CreateStreamingDistributionWithTags APIs as part of discontinuing support for Real-Time Messaging Protocol (RTMP) distributions.
+
+## 3.171.6 - 2020-12-23
+
+* `Aws\ComputeOptimizer` - This release enables AWS Compute Optimizer to analyze and generate optimization recommendations for lambda functions.
+* `Aws\DatabaseMigrationService` - AWS DMS launches support for AWS Secrets Manager to manage Oracle ASM Database credentials
+* `Aws\ResourceGroups` - Add operation `PutGroupConfiguration`. Support dedicated hosts and add `Pending` in operations `Un/GroupResources`. Add `Resources` in `ListGroupResources` and deprecate `ResourceIdentifiers`.
+
+## 3.171.5 - 2020-12-22
+
+* `Aws\Connect` - This release adds support for quick connects. For details, see the Release Notes in the Amazon Connect Administrator Guide.
+* `Aws\CostExplorer` - This release adds additional metadata that may be applicable to the Rightsizing Recommendations.
+* `Aws\ElastiCache` - Documentation updates for elasticache
+* `Aws\Glue` - AWS Glue Find Matches machine learning transforms now support column importance scores.
+* `Aws\IoTWireless` - Adding the ability to use Fingerprint in GetPartnerAccount and ListPartnerAccounts API responses to protect sensitive customer account information.
+* `Aws\RDS` - Adds customer-owned IP address (CoIP) support to Amazon RDS on AWS Outposts.
+* `Aws\SSM` - SSM Maintenance Window support for registering/updating maintenance window tasks without targets.
+
+## 3.171.4 - 2020-12-22
+
+* `Aws\Connect` - This release adds support for quick connects. For details, see the Release Notes in the Amazon Connect Administrator Guide.
+* `Aws\CostExplorer` - This release adds additional metadata that may be applicable to the Rightsizing Recommendations.
+* `Aws\ElastiCache` - Documentation updates for elasticache
+* `Aws\Glue` - AWS Glue Find Matches machine learning transforms now support column importance scores.
+* `Aws\IoTWireless` - Adding the ability to use Fingerprint in GetPartnerAccount and ListPartnerAccounts API responses to protect sensitive customer account information.
+* `Aws\RDS` - Adds customer-owned IP address (CoIP) support to Amazon RDS on AWS Outposts.
+* `Aws\SSM` - SSM Maintenance Window support for registering/updating maintenance window tasks without targets.
+
 ## 3.171.3 - 2020-12-21
 
 * `Aws\APIGateway` - Documentation updates for Amazon API Gateway.
