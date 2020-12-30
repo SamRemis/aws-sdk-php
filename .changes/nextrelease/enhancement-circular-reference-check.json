@@ -1,7 +1,7 @@
 [
   {
     "type": "enhancement",
-    "category": "Credentials",
-    "description": "Added circular reference check on assume_role"
+    "category": "",
+    "description": "Added note to docs in the client resolver about the incompatibility of use_aws_shared_files with the profile config setting"
   }
 ]
